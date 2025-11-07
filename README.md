@@ -1,3 +1,5 @@
+**Live App:** [https://task-glitch-ivory.vercel.app/](https://task-glitch-ivory.vercel.app/)
+
 # 🧠 TaskGlitch – SDE Bug Fix Challenge
 
 This project is a **Task Management Web App** originally containing hidden bugs affecting UI, logic, and performance.  
