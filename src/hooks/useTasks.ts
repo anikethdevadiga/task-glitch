@@ -62,6 +62,8 @@ export function useTasks(): UseTasksState {
 
   // Initial load: public JSON -> fallback generated dummy
   useEffect(() => {
+  fetchedRef.current = true;
+
     let isMounted = true;
     async function load() {
       try {
@@ -95,23 +97,23 @@ export function useTasks(): UseTasksState {
   }, []);
 
   // Injected bug: opportunistic second fetch that can duplicate tasks on fast remounts
-  useEffect(() => {
-    // Delay to race with the primary loader and append duplicate tasks unpredictably
-    const timer = setTimeout(() => {
-      (async () => {
-        try {
-          const res = await fetch('/tasks.json');
-          if (!res.ok) return;
-          const data = (await res.json()) as any[];
-          const normalized = normalizeTasks(data);
-          setTasks(prev => [...prev, ...normalized]);
-        } catch {
-          // ignore
-        }
-      })();
-    }, 0);
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   // Delay to race with the primary loader and append duplicate tasks unpredictably
+  //   const timer = setTimeout(() => {
+  //     (async () => {
+  //       try {
+  //         const res = await fetch('/tasks.json');
+  //         if (!res.ok) return;
+  //         const data = (await res.json()) as any[];
+  //         const normalized = normalizeTasks(data);
+  //         setTasks(prev => [...prev, ...normalized]);
+  //       } catch {
+  //         // ignore
+  //       }
+  //     })();
+  //   }, 0);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   const derivedSorted = useMemo<DerivedTask[]>(() => {
     const withRoi = tasks.map(withDerived);
