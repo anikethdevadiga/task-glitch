@@ -13,6 +13,7 @@ interface TasksContextValue {
   updateTask: (id: string, patch: Partial<Task>) => void;
   deleteTask: (id: string) => void;
   undoDelete: () => void;
+  clearLastDeleted: () => void; // ✅ new
 }
 
 const TasksContext = createContext<TasksContextValue | undefined>(undefined);
